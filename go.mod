@@ -1,4 +1,4 @@
-module github.com/JetSetIlly/gopher2600_performance_profiles
+module github.com/jetsetilly/gopher2600_performance_profiles
 
 go 1.21.7
 

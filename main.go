@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"runtime"
 
 	"github.com/jetsetilly/gopher2600/cartridgeloader"
-	"github.com/jetsetilly/gopher2600/performance"
+	"github.com/jetsetilly/gopher2600_performance_profiles/performance"
 
 	_ "embed"
 )
@@ -19,7 +21,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	err = performance.Check(os.Stdout, performance.ProfileCPU, ld, "AUTO", true, "5m")
+	fmt.Println(runtime.Version())
+	fmt.Printf("GOMAXPROCS=%d\n", runtime.GOMAXPROCS(0))
+
+	err = performance.Check(os.Stdout, performance.ProfileCPU, ld, "AUTO", true, "1m")
 	if err != nil {
 		log.Fatal(err)
 	}
