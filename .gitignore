@@ -1,3 +1,5 @@
 gopher2600_performance_profiles
 performance_cpu.profile
 .gopher2600
+benchstat_*
+_stats*

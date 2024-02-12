@@ -24,7 +24,20 @@ func main() {
 	fmt.Println(runtime.Version())
 	fmt.Printf("GOMAXPROCS=%d\n", runtime.GOMAXPROCS(0))
 
-	err = performance.Check(os.Stdout, performance.ProfileCPU, ld, "AUTO", true, "1m")
+	benchstatName := fmt.Sprintf("benchstat_%s.txt", runtime.Version())
+	f, err := os.Create(benchstatName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer func() {
+		err := f.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("benchstats written to '%s'\n", benchstatName)
+	}()
+
+	err = performance.Check(os.Stdout, f, performance.ProfileNone, ld, "AUTO", true, "1m")
 	if err != nil {
 		log.Fatal(err)
 	}
