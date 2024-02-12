@@ -120,10 +120,12 @@ func Check(output io.Writer, benchmark io.Writer, profile Profile, cartload cart
 						case <-measurePulse.C:
 							t := time.Now()
 							f := vcs.TV.GetCoords().Frame
-							d := f - measureFrame
 
-							fps, _ := CalcFPS(tv, d, t.Sub(measureTime).Seconds())
-							benchmark.Write([]byte(fmt.Sprintf("BenchmarkTest\t1\t%.2f fps/op\n", fps)))
+							numFrames := f - measureFrame
+							duration := t.Sub(measureTime)
+
+							benchmark.Write([]byte(fmt.Sprintf("BenchmarkTest\t%d\t%0.2f ms/op\n",
+								numFrames, float64(duration.Milliseconds())/float64(numFrames))))
 
 							measureTime = t
 							measureFrame = f
