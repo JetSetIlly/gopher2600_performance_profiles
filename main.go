@@ -37,7 +37,7 @@ func main() {
 		fmt.Printf("benchstats written to '%s'\n", benchstatName)
 	}()
 
-	err = performance.Check(os.Stdout, f, performance.ProfileNone, ld, "AUTO", true, "1m")
+	err = performance.Check(os.Stdout, f, performance.ProfileCPU, ld, "AUTO", true, "1m")
 	if err != nil {
 		log.Fatal(err)
 	}
