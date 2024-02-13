@@ -5,9 +5,21 @@ project in `performance` measurment mode.
 
 Build the executable with 'go build .'
 
-Run the executable with no arguments. Each invocation of the tool will run for 1
-minute. FPS is measured every second and recorded to a benchstat file with a
-name suffices with the current go version. For example:
+PGO files are supplied. `default.pgo` is suitable for Go v1.22.0 and `default_1.21.0.pgo` for earlier versions
 
-> benchstat_devel go1.22-ad943066f6 Thu Jul 20 21:39:57 2023 +0000.txt
+Run the executable with no arguments. By default each invocation of the tool will run for 1
+minute.
 
+Benchstat and CPU profiles, etc. can be specified by command line argument
+
+```
+Usage of gopher2600_performance_profiles:
+  -benchstat
+    	record benchstats to file
+  -duration string
+    	duration of execution (default "1m")
+  -profile string
+    	run with profiling: CPU, MEM, TRACE, ALL (default "none")
+  -uncapped
+    	run emulation with no FPS cap (default true)
+```
