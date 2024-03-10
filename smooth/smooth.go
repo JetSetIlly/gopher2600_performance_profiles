@@ -6,6 +6,7 @@ import (
 	"log"
 	"math"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -86,20 +87,30 @@ func main() {
 		log.Fatalf("Error reading data from %s: %v", file2, err)
 	}
 
+	clean := func(s string) string {
+		s = filepath.Base(s)
+		s, _ = strings.CutSuffix(s, filepath.Ext(s))
+		return s
+	}
+
+	display1 := clean(file1)
+	display2 := clean(file2)
+
 	diff1 := absoluteDifferences(data1)
 	diff2 := absoluteDifferences(data2)
 
 	variance1 := variance(diff1)
 	variance2 := variance(diff2)
 
-	fmt.Printf("Variance of differences for %s: %.6f\n", file1, variance1)
-	fmt.Printf("Variance of differences for %s: %.6f\n", file2, variance2)
+	fmt.Println("Variance of Differences")
+	fmt.Printf("\t%.6f: %s\n", variance1, display1)
+	fmt.Printf("\t%.6f: %s\n", variance2, display2)
 
 	if variance1 < variance2 {
-		fmt.Println("File", file1, "is smoother")
+		fmt.Println(display1, "is smoother")
 	} else if variance1 > variance2 {
-		fmt.Println("File", file2, "is smoother")
+		fmt.Println(display2, "is smoother")
 	} else {
-		fmt.Println("Equal smoothness")
+		fmt.Println("Both sets of data have equal smoothness")
 	}
 }
