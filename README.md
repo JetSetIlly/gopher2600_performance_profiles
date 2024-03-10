@@ -23,3 +23,5 @@ Usage of gopher2600_performance_profiles:
   -uncapped
     	run emulation with no FPS cap (default true)
 ```
+
+Output of `-benchstat` can be used with the [benchstat tool](https://pkg.go.dev/golang.org/x/perf/cmd/benchstat). It can also be used with the program in the `smooth` directory. This program compares two benchstat files and tries to identify which of the two is "smoother". ie. has less jitter in the input data
